@@ -1,0 +1,42 @@
+{% load static %}
+{% block content %}
+
+{% comment %} <form method="POST">
+    {% csrf_token %}
+
+  <label for="fname">Employee Id</label>  <br>
+
+  <input type="text" name="employee_id">  <br>
+
+  <label for="fname">Employee Name</label>  <br>
+
+  <input type="text" name="employee_name">  <br>
+
+  <label for="lname">Holiday Taken Till Now</label>   <br>
+  
+  <input type="text" name="holiday_taken">   <br>  <br>
+
+  <button type="submit">Insert </button>
+
+</form>  {% endcomment %}
+
+
+
+
+
+      <a  href = "{% url 'employeeRegistrationRequestApi' %}" } > Employee Registration Api </a> 
+      <br>
+      <br>
+      <br>
+      <a  href = "{% url 'employeeRegistrationUserInterface' %}" } > Employee Registration Userinterface Api </a>
+
+{% endblock content %}
+
+
+{% comment %} {
+  "id": 3,
+  "employee_id": 110,
+  "employee_name": "Mahesh Pawale",
+  "holiday_taken": 27,
+ 
+} {% endcomment %}

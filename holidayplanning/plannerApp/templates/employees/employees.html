@@ -1,0 +1,22 @@
+{% load static %}
+{% block content %}
+
+    <h1> Employees </h1>
+    <br>
+
+    <h1> Employees Registration</h1>
+    <br>
+
+    <a href="{% url 'employeesRegistration' %}"> Employee Registration </a>
+    <br>
+
+    <h1> Employees Login</h1>
+    <br>
+    
+    <a href="{% url 'employeesLogin' %}"> Employee Login </a>
+
+    <h1> Employees Creating Requests</h1>
+
+    <a href="{% url 'employeeCreatingRequest' %}"> Employee Creating Request </a>
+
+{% endblock content %}

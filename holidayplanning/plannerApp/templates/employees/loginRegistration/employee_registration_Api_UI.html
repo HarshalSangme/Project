@@ -1,0 +1,42 @@
+{% load static %}
+{% block content %}
+
+
+
+<center>
+    <form method="POST">
+        {% csrf_token %}
+    <table border = "1">
+        <tr>
+           <td>Employee Id</td>
+           <td><input type="number" name = "employee_id"></td>
+        </tr>
+    
+        <tr>
+          <td>Employee Name</td>
+          <td><input type="text" name = "employee_name"></td>
+       </tr>
+    
+       <tr>
+        <td>Holiday Taken</td>
+          <td><input type="number" name = "holiday_taken"></td>
+      </tr>
+
+      <tr>
+        <td>Email Id</td>
+          <td><input type="text" name = "employee_email_id"></td>
+      </tr>
+
+       <tr>
+        <td>Password</td>
+          <td><input type="text" name = "employee_password"></td>
+      </tr>
+    
+    </table>
+    
+    <input type="submit" value = "Insert"> 
+    <form>
+    </center>
+
+
+{% endblock content %}

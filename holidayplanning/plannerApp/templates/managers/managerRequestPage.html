@@ -1,0 +1,51 @@
+{% load static %}
+{% block content %}
+
+    <table border=1>
+        <tr>
+            <th>id</th>
+            <th>Request id</th>
+            <th>Worker id</th>
+            <th>Status</th>
+            <th>Resolved By </th>
+            <th>Request Created at </th>
+            <th>Vaccation Start date </th>
+            <th>Vaccation End date</th>
+        </tr>
+
+        <tr>
+        {% for data in EmployeesRequest %}
+
+            <td>
+                {{data.id}}
+            </td>
+            <td>
+                {{data.request_id}}
+            </td>
+            <td>
+                {{data.author}}
+            </td>
+            <td>
+                {{data.status}}
+            </td>
+            <td>
+                {{data.resolved_by}}
+            </td>
+            <td>
+                {{data.request_created_at}}
+            </td>
+            <td>
+                {{data.vaccation_start_date}}
+            </td>
+            <td>
+                {{data.vaccation_end_date}}
+            </td>
+
+        </tr>
+        {% endfor %}
+   
+    </table>
+
+   
+
+{% endblock content %}

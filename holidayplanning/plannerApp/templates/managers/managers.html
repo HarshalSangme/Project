@@ -1,0 +1,27 @@
+{% load static %}
+{% block content %}
+
+    <h1> Managers </h1>
+    <br>
+
+    <h1> Managers Registration</h1>
+    <br>
+
+    <a href="{% url 'managersRegistration' %}"> Managers Registration </a>
+    <br>
+
+    <h1> Managers Login</h1>
+    <br>
+    
+    <a href="{% url 'managersLogin' %}"> Managers Login </a>
+
+    <h1> Managers Page Request</h1>
+    <br>
+    
+    <a href="{% url 'managersPageRequest' %}"> Managers Request </a>
+    <br>
+
+    <br>
+    <a href="{% url 'mangerRequestpageUI' %}"> Managers Page ui Request </a>
+
+{% endblock content %}
