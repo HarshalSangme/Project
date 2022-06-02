@@ -1,5 +1,6 @@
 from re import I
 from unittest import result
+from django.http import HttpResponse
 from django.shortcuts import render
 import requests
 from .serializers import EmployeesRequestSerializer
@@ -14,12 +15,16 @@ from rest_framework import status
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 
+from rest_framework.renderers import JSONRenderer
+
 
 # Create your views here.
 def index(request):
 
     return render(request, 'userInterfacePages/index.html')
 
+
+# ******************************************* ALL ABOUT EMPLOYEE FRONTEND ************************************
 
 def employees(request):
     return render(request, 'employees/employees.html')
@@ -30,7 +35,7 @@ def employeesRegistration(request):
 def employeesLogin(request):
     return render(request, 'employees/loginRegistration/employees_login.html')
 
-# .................................................................................
+# ******************************************* ALL ABOUT MANAGERS FRONTEND ************************************
 
 def managers(request):
     return render(request, 'managers/managers.html')
@@ -42,24 +47,10 @@ def managersLogin(request):
     return render(request, 'managers/managerLoginRegistration/managers_login.html')
 
 
-# /////////////////////////////////// Employee SIDE ////////////////////////////////
-# ..................................................................................
-
-# Creating Employee Registration Api 
-
-# @api_view(['POST'])
-# def EmployeeRegistrationApi(request):
-#     serializer = EmployeesRegistrationSerializer(data=request.data)
-
-#     if serializer.is_valid():
-#         serializer.save()
-
-#     print(serializer.errors)
-
-#     return Response(serializer.data)
+# **************************************** All ABOUT EMPLOYEE BACKEND ********************************************
 
 @api_view(['POST'])
-def CreateEmployeeApi(request):
+def  EmployeeRegistrationWithApi(request):
     # Pass JSON data from user POST request to serializer for validation
     create_serializer = CreateNewEmployeeSerializer(data=request.data)
 
@@ -81,6 +72,7 @@ def CreateEmployeeApi(request):
 
 
 # Employee Registration with the help of Api and rendering it into User Interface
+
 def EmployeeRegistrationWithUserInterface(request):
     if request.method == 'POST':
         employee_id = request.POST.get('employee_id')
@@ -121,8 +113,7 @@ def EmployeeRegistrationWithUserInterface(request):
 
 
 
-# /////////////////////////////////// MANAGER SIDE ////////////////////////////////
-# ..................................................................................
+# ************************** EMPLOYEE CREATEING HOLIDAY REQUEST ******************************
 
 #  Employees Creating Request for Asking Holiday to Managers
 
@@ -146,20 +137,14 @@ def CreateHolidayRequestWithUserInterface(request):
     return render(request, 'employees/employeeCreatingRequest.html', {'EmployeesRequest':resultsi})
 
 
-
-
-
-
-
-
-# /////////////////////////////////// MANAGER SIDE ////////////////////////////////
-# ..................................................................................
+# ************************************* ALL ABOUT MANAGERS BACKEND *******************************************
 
 @api_view(['GET'])
 def ShowAllRequestApi(request):
     EmployeesRequestobject = EmployeesRequest.objects.all()
     serializer = EmployeesRequestSerializer(EmployeesRequestobject, many=True)
-    return Response(serializer.data)
+    json_data = JSONRenderer().render(serializer.data)
+    return HttpResponse(json_data, content_type = 'application/json')
 
 # Manager Viewing requests with the help of UserInterface 
 
