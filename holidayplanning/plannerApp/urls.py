@@ -22,7 +22,7 @@ urlpatterns = [
     path('employeeCreatingRequest',views.CreateHolidayRequestApi, name='employeeCreatingRequest'),
 
     # Employee Registration Api
-    path('employeeRegistrationApi', views.CreateEmployeeApi, name='employeeRegistrationRequestApi'),
+    path('employeeRegistrationApi', views.EmployeeRegistrationWithApi, name='employeeRegistrationRequestApi'),
     # Employee Registration With User Interface
     path('employeeRegistrationUserInterface/', views.EmployeeRegistrationWithUserInterface,  name='employeeRegistrationUserInterface'),
 
