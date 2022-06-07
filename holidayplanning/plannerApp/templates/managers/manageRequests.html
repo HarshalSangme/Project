@@ -1,0 +1,55 @@
+{% load static %}
+{% block content %}
+
+    <form method="POST" action="/manageRequest/">
+        {% csrf_token %}
+        <input type="text" name="textfield">
+        <button type="submit">Find Request</button>
+    </form> 
+
+    <table border=1>
+        <tr>
+            <th>id</th>
+            <th>Request id</th>
+            <th>Worker id</th>
+            <th>Status</th>
+            <th>Resolved By </th>
+            <th>Request Created at </th>
+            <th>Vaccation Start date </th>
+            <th>Vaccation End date</th>
+        </tr>
+    
+        <tr>
+        {% comment %} {% for data in manageRequests %} {% endcomment %}
+
+            <td>
+                {{manageRequests.id}}
+            </td>
+            <td>
+                {{manageRequests.request_id}}
+            </td>
+            <td>
+                {{manageRequests.author}}
+            </td>
+            <td>
+                {{manageRequests.status}}
+            </td>
+            <td>
+                {{manageRequests.resolved_by}}
+            </td>
+            <td>
+                {{manageRequests.request_created_at}}
+            </td>
+            <td>
+                {{manageRequests.vaccation_start_date}}
+            </td>
+            <td>
+                {{manageRequests.vaccation_end_date}}
+            </td>
+    
+        </tr> 
+        {% comment %} {% endfor %} {% endcomment %}
+    
+    </table>
+
+{% endblock content %}
