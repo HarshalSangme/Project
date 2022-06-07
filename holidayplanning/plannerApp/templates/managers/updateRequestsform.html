@@ -1,0 +1,17 @@
+{% load static %}
+
+{% block content %}
+
+        <form method = 'get' action="{% url 'urlUpdateRequest' %}">
+
+            {% csrf_token %}
+
+            <input type="text" name="ename" id="fname">
+
+            
+
+            <input type="submit" value="Submit">
+
+        </form>
+
+{% endblock content %}
