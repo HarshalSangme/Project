@@ -31,15 +31,8 @@
 
         {% comment %} {% for search in updateRequests%} {% endcomment %}
 
-    
-        <form method = 'get' action="{% url 'urlUpdateRequest' id=updateRequests.first.id %}">
-            {% csrf_token %}
 
-            <input type="text" id="fname">
-
-            <input type="submit" value="Submit">
-
-        </form>
+            
 
     
 
