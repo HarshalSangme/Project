@@ -40,11 +40,11 @@ urlpatterns = [
     path('RequestPage/', views.DisplayAllRequestUI, name='mangerRequestpageUI'),
 
 
-# JWT Token Auth UrL
-
-    # path('gettoken/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    # path('refreshtoken/', TokenRefreshView.as_view(), name='token_refresh'),
-    # path('verifytoken/', TokenVerifyView.as_view(), name='token_verify')
 
 
+    path('updateRequests/', views.updateRequestsAll, name='updateRequestsName'),
+    path('updateRequests/<int:id>/', views.updateRequestWithID, name='urlUpdateRequest')
+
+
+    
 ]

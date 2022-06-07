@@ -2,7 +2,10 @@ from re import I
 from unittest import result
 from django.http import HttpResponse
 from django.shortcuts import render
+from matplotlib.pyplot import get
+from regex import E
 import requests
+from yaml import serialize
 from .serializers import EmployeesRequestSerializer
 from .serializers import CreateNewEmployeeSerializer
 from .models import EmployeesRequest
@@ -153,6 +156,54 @@ def DisplayAllRequestUI(request):
     results = callApi.json()
 
     return render(request, 'managers/managerRequestPage.html', {'EmployeesRequest':results})
+
+
+def manageRequestsApi(request):
+    if request.method == 'POST':
+        search_id = request.POST.get('textfield', None)
+
+        try:
+            request_details = EmployeesRequest.objects.get(id = search_id)
+            # serializer = EmployeesRequestSerializer(request_details)
+            # json_data = JSONRenderer().render(serializer.data)
+
+            # return HttpResponse(json_data, content_type = 'application/json')
+
+            request_id = request_details.request_id
+
+            if request_id == 12:
+                return render(request, 'managers/manageRequests.html', {'manageRequests' : request_details})
+            else:
+                return HttpResponse('User Not satisfying conditions')
+
+        except EmployeesRequest.DoesNotExist:
+            return HttpResponse("no such user")
+    else:
+        return render(request, 'managers/manageRequests.html')
+
+
+
+        
+def updateRequestsAll(request):
+    get_request_details = EmployeesRequest.objects.all()
+
+    return render(request, 'managers/updateRequests.html', {'updateRequests' : get_request_details})
+
+
+
+def updateRequestWithID(request, id):
+    pk = id
+    get_id_with_request = EmployeesRequest.objects.get(id = pk)
+
+    return render(request, 'managers/updateRequests.html', {'getDetails' : get_id_with_request})
+
+
+
+
+
+
+
+
 
 
 # {

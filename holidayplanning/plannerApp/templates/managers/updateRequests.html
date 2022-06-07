@@ -1,0 +1,80 @@
+{% load static %}
+{% block content %}
+    {% comment %} <table border=1>
+        <tr>
+            <th>id</th>
+            <th>Request id</th>
+            <th>Worker id</th>
+            <th>Status</th>
+            <th>Resolved By</th>
+            <th>Request Created at</th>
+            <th>Vaccation Start date</th>
+            <th>Vaccation End date</th>
+        </tr>
+        <tr>
+            {% for data in updateRequests %}
+                <td>{{ data.id }}</td>
+                <td>{{ data.request_id }}</td>
+                <td>{{ data.author }}</td>
+                <td>{{ data.status }}</td>
+                <td>{{ data.resolved_by }}</td>
+                <td>{{ data.request_created_at }}</td>
+                <td>{{ data.vaccation_start_date }}</td>
+                <td>{{ data.vaccation_end_date }}</td>
+            </tr>
+        {% endfor %}
+    </table> {% endcomment %}
+
+    <h1>Update Form</h1>
+
+
+
+        {% comment %} {% for search in updateRequests%} {% endcomment %}
+
+    
+        <form method = 'get' action="{% url 'urlUpdateRequest' id=updateRequests.first.id %}">
+            {% csrf_token %}
+
+            <input type="text" id="fname">
+
+            <input type="submit" value="Submit">
+
+        </form>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    
+    <table border=1>
+        <tr>
+            <th>id</th>
+            <th>Request id</th>
+            <th>Worker id</th>
+            <th>Status</th>
+            <th>Resolved By</th>
+            <th>Request Created at</th>
+            <th>Vaccation Start date</th>
+            <th>Vaccation End date</th>
+        </tr>
+        <tr>
+            <td>{{ getDetails.id }}</td>
+                <td>{{ getDetails.request_id }}</td>
+                <td>{{ getDetails.author }}</td>
+                <td>{{ getDetails.status }}</td>
+                <td>{{ getDetails.resolved_by }}</td>
+                <td>{{ getDetails.request_created_at }}</td>
+                <td>{{ getDetails.vaccation_start_date }}</td>
+                <td>{{ getDetails.vaccation_end_date }}</td>
+            </tr>
+    </table>
+
+{% endblock content %}
