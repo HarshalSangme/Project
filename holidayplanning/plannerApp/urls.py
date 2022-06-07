@@ -43,7 +43,7 @@ urlpatterns = [
 
 
     path('updateRequests/', views.updateRequestsAll, name='updateRequestsName'),
-    path('updateRequests/<int:id>/', views.updateRequestWithID, name='urlUpdateRequest')
+    path('updateRequests/result', views.updateRequestWithID, name='urlUpdateRequest')
 
 
     
