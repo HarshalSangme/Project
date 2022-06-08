@@ -185,17 +185,20 @@ def manageRequestsApi(request):
 
         
 def updateRequestsAll(request):
+
     get_request_details = EmployeesRequest.objects.all()
 
-    return render(request, 'managers/updateRequests.html', {'updateRequests' : get_request_details})
+    return render(request, 'managers/updateRequestsform.html', {'updateRequests' : get_request_details})
+
 
 
 
 def updateRequestWithID(request, id):
-    pk = id
-    get_id_with_request = EmployeesRequest.objects.get(id = pk)
+    search=int(request.GET["ename"])
+    get_id_with_request = EmployeesRequest.objects.get(id = search)
 
     return render(request, 'managers/updateRequests.html', {'getDetails' : get_id_with_request})
+
 
 
 
