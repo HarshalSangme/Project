@@ -183,6 +183,13 @@ def manageRequestsApi(request):
 
 
 
+def  deleteRequest(request, id):
+    get_id_delete = EmployeesRequest.objects.get(id = id)
+    get_id_delete.delete()
+
+    return HttpResponse("Request Deleted Successfully")
+
+
         
 def updateRequestsAll(request):
 
@@ -190,10 +197,13 @@ def updateRequestsAll(request):
 
     return render(request, 'managers/updateRequestsform.html', {'updateRequests' : get_request_details})
 
+def updateRequestWithId(request, id):
+    get_request_details = EmployeesRequest.objects.get(id = id)
+
+    return render(request, 'managers/updateRequests.html', {'getDetails' : get_request_details})
 
 
-
-def updateRequestWithID(request, id):
+def updateRequestWithForm(request):
     search=int(request.GET["ename"])
     get_id_with_request = EmployeesRequest.objects.get(id = search)
 

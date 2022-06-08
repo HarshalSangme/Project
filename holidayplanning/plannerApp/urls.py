@@ -41,10 +41,15 @@ urlpatterns = [
 
 
 
-
+# *********************************** Update Reqeusts **********************************
     path('updateRequests/', views.updateRequestsAll, name='updateRequestsName'),
-    path('updateRequests/result', views.updateRequestWithID, name='urlUpdateRequest')
+    path('updateRequests/results', views.updateRequestWithForm, name='urlUpdateRequest'),  # with the help of forms
 
+    path('updateRequestsForm/<int:id>', views.updateRequestWithId, name='urlUpdateRequestForm'), # with the help of forms
+
+
+# *********************************** Delete Requests ***************************************
+   path('DeleteRequests/<int:id>', views.deleteRequest, name='urldeleteRequest' )
 
     
 ]
