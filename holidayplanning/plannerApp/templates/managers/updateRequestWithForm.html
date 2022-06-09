@@ -26,4 +26,15 @@
             </tr>
     </table>
 
+    <h1> Edit Request </h1>
+
+    {% comment %} <a href="{% url 'urlUpdateRequestForms' %}"><button>FORMS</button></a>  {% endcomment %}
+
+    <form method = 'post' action="{% url 'urlUpdateRequestForms' %}">
+        {% csrf_token %}
+        {{ form.as_p}}
+        <input type="submit" value="Update">
+    </form>
+
+
 {% endblock content %}
