@@ -1,3 +1,4 @@
+from pickle import NONE
 from re import I
 from unittest import result
 from django.http import HttpResponse
@@ -15,10 +16,14 @@ from rest_framework.response import Response
 from rest_framework import status
 
 # Importing Authentication 
-from rest_framework.authentication import TokenAuthentication
-from rest_framework.permissions import IsAuthenticated
+# from rest_framework.authentication import TokenAuthentication
+# from rest_framework.permissions import IsAuthenticated
 
 from rest_framework.renderers import JSONRenderer
+
+# Importing Forms
+from .forms import updateRequestForm
+
 
 
 # Create your views here.
@@ -195,21 +200,37 @@ def updateRequestsAll(request):
 
     get_request_details = EmployeesRequest.objects.all()
 
-    return render(request, 'managers/updateRequestsform.html', {'updateRequests' : get_request_details})
+    return render(request, 'managers/updateRequestslist.html', {'updateRequests' : get_request_details})
 
 def updateRequestWithId(request, id):
     get_request_details = EmployeesRequest.objects.get(id = id)
 
-    return render(request, 'managers/updateRequests.html', {'getDetails' : get_request_details})
+    return render(request, 'managers/updateRequestWithForm.html', {'getDetails' : get_request_details})
 
+get_id_with_request = 6
 
-def updateRequestWithForm(request):
+def updateRequestSearch(request):
     search=int(request.GET["ename"])
     get_id_with_request = EmployeesRequest.objects.get(id = search)
+    form = updateRequestForm()
 
-    return render(request, 'managers/updateRequests.html', {'getDetails' : get_id_with_request})
+    return render(request, 'managers/updateRequestWithForm.html', {'getDetails' : get_id_with_request, 'form': form})
 
+from django.http import HttpResponseRedirect
 
+def updateRequestsForms(request):
+    if request.method == 'POST':
+        form = updateRequestForm(request.POST, get_id_with_request)
+        if form.is_valid():
+            form.save()
+            return HttpResponse('Requested Updated Successfully')
+        else:
+            return HttpResponse('Validation Failed')
+    else:
+        # form = updateRequestForm()
+        return HttpResponse('Method Not Valid')
+
+    return render(request, 'managers/fromUpdated.html', {'form': form})
 
 
 
