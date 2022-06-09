@@ -43,13 +43,14 @@ urlpatterns = [
 
 # *********************************** Update Reqeusts **********************************
     path('updateRequests/', views.updateRequestsAll, name='updateRequestsName'),
-    path('updateRequests/results', views.updateRequestWithForm, name='urlUpdateRequest'),  # with the help of forms
+    path('updateRequests/results', views.updateRequestSearch, name='urlUpdateRequestSearch'),  # with the help of Seacrh Field
 
-    path('updateRequestsForm/<int:id>', views.updateRequestWithId, name='urlUpdateRequestForm'), # with the help of forms
+    path('updateRequestsForm/<int:id>', views.updateRequestWithId, name='urlUpdateRequestId'), # with the help of Id which is inside For Loop
 
+    path('updateRequests/save', views.updateRequestsForms, name='urlUpdateRequestForms'),
 
 # *********************************** Delete Requests ***************************************
-   path('DeleteRequests/<int:id>', views.deleteRequest, name='urldeleteRequest' )
+   path('DeleteRequests/<int:id>', views.deleteRequest, name='urldeleteRequest' )  # with the help of Id which is inside For Loop
 
     
 ]
