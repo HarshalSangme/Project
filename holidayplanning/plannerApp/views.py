@@ -1,3 +1,4 @@
+from django.http import HttpResponseRedirect
 from pickle import NONE
 from re import I
 from unittest import result
@@ -15,7 +16,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 
-# Importing Authentication 
+# Importing Authentication
 # from rest_framework.authentication import TokenAuthentication
 # from rest_framework.permissions import IsAuthenticated
 
@@ -23,7 +24,6 @@ from rest_framework.renderers import JSONRenderer
 
 # Importing Forms
 from .forms import updateRequestForm
-
 
 
 # Create your views here.
@@ -37,19 +37,24 @@ def index(request):
 def employees(request):
     return render(request, 'employees/employees.html')
 
+
 def employeesRegistration(request):
     return render(request, 'employees/loginRegistration/employees_registration.html')
+
 
 def employeesLogin(request):
     return render(request, 'employees/loginRegistration/employees_login.html')
 
 # ******************************************* ALL ABOUT MANAGERS FRONTEND ************************************
 
+
 def managers(request):
     return render(request, 'managers/managers.html')
 
+
 def managersRegistration(request):
     return render(request, 'managers/managerLoginRegistration/managers_registration.html')
+
 
 def managersLogin(request):
     return render(request, 'managers/managerLoginRegistration/managers_login.html')
@@ -58,25 +63,25 @@ def managersLogin(request):
 # **************************************** All ABOUT EMPLOYEE BACKEND ********************************************
 
 @api_view(['POST'])
-def  EmployeeRegistrationWithApi(request):
+def EmployeeRegistrationWithApi(request):
     # Pass JSON data from user POST request to serializer for validation
     create_serializer = CreateNewEmployeeSerializer(data=request.data)
 
     # Check if user POST data passes validation checks from serializer
     if create_serializer.is_valid():
 
-      # If user data is valid, create a new todo item record in the database
-      employeeRegistration_item_object = create_serializer.save()
+        # If user data is valid, create a new todo item record in the database
+        employeeRegistration_item_object = create_serializer.save()
 
-      # Serialize the new todo item from a Python object to JSON format
-      read_serializer = CreateNewEmployeeSerializer(employeeRegistration_item_object)
+        # Serialize the new todo item from a Python object to JSON format
+        read_serializer = CreateNewEmployeeSerializer(
+            employeeRegistration_item_object)
 
-      # Return a HTTP response with the newly created todo item data
-      return Response(read_serializer.data, status=201)
+        # Return a HTTP response with the newly created todo item data
+        return Response(read_serializer.data, status=201)
 
     # If the users POST data is not valid, return a 400 response with an error message
     return Response(create_serializer.errors, status=400)
-
 
 
 # Employee Registration with the help of Api and rendering it into User Interface
@@ -92,10 +97,10 @@ def EmployeeRegistrationWithUserInterface(request):
         # print(employee_id, employee_name, holiday_taken)
 
         data = {
-            'employee_id' : employee_id,
+            'employee_id': employee_id,
             'employee_name': employee_name,
-            'holiday_taken':holiday_taken,
-            'employee_email_id':employee_email_id,
+            'holiday_taken': holiday_taken,
+            'employee_email_id': employee_email_id,
             'employee_password': employee_password
         }
         # print(employee_id, employee_name)
@@ -110,15 +115,15 @@ def EmployeeRegistrationWithUserInterface(request):
 
         headers = {'Content-Type': 'application/json'}
 
-        read = requests.post('http://127.0.0.1:8000/employeeRegistrationApi', json = data, headers = headers)
-        
+        read = requests.post(
+            'http://127.0.0.1:8000/employeeRegistrationApi', json=data, headers=headers)
+
         return render(request, 'employees/loginRegistration/employee_registration_Api_UI.html')
     else:
         return render(request, 'employees/loginRegistration/employee_registration_Api_UI.html')
 
 
 # Employee Login Api
-
 
 
 # ************************** EMPLOYEE CREATEING HOLIDAY REQUEST ******************************
@@ -135,14 +140,15 @@ def CreateHolidayRequestApi(request):
     print(serializer.errors)
 
     return Response(serializer.data)
-  
 
-# Employee creating request with the help of UserInterface 
+
+# Employee creating request with the help of UserInterface
 def CreateHolidayRequestWithUserInterface(request):
-    callHolidayRequestApi = requests.post('http://127.0.0.1:8000/employeeCreatingRequest')
+    callHolidayRequestApi = requests.post(
+        'http://127.0.0.1:8000/employeeCreatingRequest')
     resultsi = callHolidayRequestApi.json()
 
-    return render(request, 'employees/employeeCreatingRequest.html', {'EmployeesRequest':resultsi})
+    return render(request, 'employees/employeeCreatingRequest.html', {'EmployeesRequest': resultsi})
 
 
 # ************************************* ALL ABOUT MANAGERS BACKEND *******************************************
@@ -152,15 +158,16 @@ def ShowAllRequestApi(request):
     EmployeesRequestobject = EmployeesRequest.objects.all()
     serializer = EmployeesRequestSerializer(EmployeesRequestobject, many=True)
     json_data = JSONRenderer().render(serializer.data)
-    return HttpResponse(json_data, content_type = 'application/json')
+    return HttpResponse(json_data, content_type='application/json')
 
-# Manager Viewing requests with the help of UserInterface 
+# Manager Viewing requests with the help of UserInterface
+
 
 def DisplayAllRequestUI(request):
     callApi = requests.get('http://127.0.0.1:8000/managersPageRequest/')
     results = callApi.json()
 
-    return render(request, 'managers/managerRequestPage.html', {'EmployeesRequest':results})
+    return render(request, 'managers/managerRequestPage.html', {'EmployeesRequest': results})
 
 
 def manageRequestsApi(request):
@@ -168,7 +175,7 @@ def manageRequestsApi(request):
         search_id = request.POST.get('textfield', None)
 
         try:
-            request_details = EmployeesRequest.objects.get(id = search_id)
+            request_details = EmployeesRequest.objects.get(id=search_id)
             # serializer = EmployeesRequestSerializer(request_details)
             # json_data = JSONRenderer().render(serializer.data)
 
@@ -177,7 +184,7 @@ def manageRequestsApi(request):
             request_id = request_details.request_id
 
             if request_id == 12:
-                return render(request, 'managers/manageRequests.html', {'manageRequests' : request_details})
+                return render(request, 'managers/manageRequests.html', {'manageRequests': request_details})
             else:
                 return HttpResponse('User Not satisfying conditions')
 
@@ -187,57 +194,61 @@ def manageRequestsApi(request):
         return render(request, 'managers/manageRequests.html')
 
 
-
-def  deleteRequest(request, id):
-    get_id_delete = EmployeesRequest.objects.get(id = id)
+def deleteRequest(request, id):
+    get_id_delete = EmployeesRequest.objects.get(id=id)
     get_id_delete.delete()
 
     return HttpResponse("Request Deleted Successfully")
 
 
-        
 def updateRequestsAll(request):
 
     get_request_details = EmployeesRequest.objects.all()
 
-    return render(request, 'managers/updateRequestslist.html', {'updateRequests' : get_request_details})
+    return render(request, 'managers/updateRequestslist.html', {'updateRequests': get_request_details})
+
 
 def updateRequestWithId(request, id):
-    get_request_details = EmployeesRequest.objects.get(id = id)
+    get_request_details = EmployeesRequest.objects.get(id=id)
 
-    return render(request, 'managers/updateRequestWithForm.html', {'getDetails' : get_request_details})
+    return render(request, 'managers/updateRequestWithForm.html', {'getDetails': get_request_details})
 
-get_id_with_request = 6
-
-def updateRequestSearch(request):
-    search=int(request.GET["ename"])
-    get_id_with_request = EmployeesRequest.objects.get(id = search)
-    form = updateRequestForm()
-
-    return render(request, 'managers/updateRequestWithForm.html', {'getDetails' : get_id_with_request, 'form': form})
-
-from django.http import HttpResponseRedirect
-
-def updateRequestsForms(request):
+def updateRequestCURD(request, id):
+     
     if request.method == 'POST':
-        form = updateRequestForm(request.POST, get_id_with_request)
+        get_request_details = EmployeesRequest.objects.get(id = id)     
+        form = updateRequestForm(request.POST, instance = get_request_details)
         if form.is_valid():
             form.save()
             return HttpResponse('Requested Updated Successfully')
-        else:
-            return HttpResponse('Validation Failed')
     else:
-        # form = updateRequestForm()
-        return HttpResponse('Method Not Valid')
-
-    return render(request, 'managers/fromUpdated.html', {'form': form})
-
-
+        pi = EmployeesRequest.objects.get(id = id)
+        form = updateRequestForm(instance = pi)
+        # return HttpResponse('Method Not Valid')
+        return render(request, 'managers/updateFormCurd.html', {'form': form})
 
 
+def updateRequestSearch(request):
+    search = int(request.GET["ename"])
+    get_id_with_request = EmployeesRequest.objects.get(id=search)
+    form = updateRequestForm()
+
+    return render(request, 'managers/updateRequestWithForm.html', {'getDetails': get_id_with_request, 'form': form})
 
 
+# def updateRequestsForms(request):
+#     if request.method == 'POST':
+#         form = updateRequestForm(request.POST, get_id_with_request)
+#         if form.is_valid():
+#             form.save()
+#             return HttpResponse('Requested Updated Successfully')
+#         else:
+#             return HttpResponse('Validation Failed')
+#     else:
+#         # form = updateRequestForm()
+#         return HttpResponse('Method Not Valid')
 
+#     return render(request, 'managers/fromUpdated.html', {'form': form})
 
 
 # {
