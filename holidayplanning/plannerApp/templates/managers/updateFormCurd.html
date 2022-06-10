@@ -1,0 +1,13 @@
+{% load static %}
+{% block content %}
+
+    <h1>Update Form Curd</h1>
+    {% comment %} {% url 'urlUpdateRequestCURD' %} {% endcomment %}
+<form method = 'post' action="">
+    {% csrf_token %}
+    {{ form.as_p}}
+    <input type="submit" value="Update">
+</form>
+
+
+{% endblock content %}
